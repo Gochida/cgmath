@@ -42,7 +42,7 @@ The benefit of using a Vector2 over something like a bare array, is that it adds
  * @returns {null}
  */
 function baseForEvery(leftVal, rightVal, index, leftVector, rightVector){}
-
+// Disregard this - it's purely to provide a signature for the forEvery function's callback
 
 /** Generic Vector - designed to be flexible enough to use as a 2d, 3d, or higher dimension vector.  
  * Actual number of dimensions is dependent on how many values are stored inside it.  
@@ -148,6 +148,26 @@ class Vector extends Array {
    * */
   subtract(otherVec) {
     return Vector.subtract(this, otherVec)
+  }
+
+  /** Multiply a scalar with a vector
+   * @param {Vector} vector
+   * @param {number} scalar 
+   * @returns {Vector} result of multiplying scalar with vector
+   */
+  static multiply(vector, scalar) {
+    if(vector instanceof Vector && !isNaN(scalar)){
+      let out = new Vector()
+      return vector.forEach((val) => {
+        out.push(val * scalar)
+      })
+      return out
+    }
+    return undefined
+  }
+
+  multiply(scalar) {
+    return Vector.multiply(this, scalar)
   }
   
   /** Calculates the magnitude (or length) of a vector 
